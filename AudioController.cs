@@ -7,10 +7,14 @@ using static UnityEditor.PlayerSettings;
 public class AudioController : MonoBehaviour
 {
     public static AudioController Instance { get; private set; }
+
+    [Range(0, 1)]
+    [SerializeField] private float _musicVolume = 1;
+    [Range(0, 1)]
+    [SerializeField] private float _sfxVolume = 1;
     [SerializeField] private String _startingMusic;
     [SerializeField] private Sound[] _musicSounds, _sfxSounds;
     [SerializeField] private AudioSource _musicSource, _sfxSource;
-    private float _musicVolume, _sfxVolume;
 
     private Sound _previousMusic, _currentMusic;
 
@@ -29,8 +33,6 @@ public class AudioController : MonoBehaviour
     private void Start()
     {
         if (_startingMusic != null) PlayMusic(_startingMusic);
-        _musicVolume = 1;
-        _sfxVolume = 1;
     }
 
     private void Update()
