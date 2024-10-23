@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static UnityEditor.PlayerSettings;
 
-public class AudioController : MonoBehaviour
+[Serializable]
+public class Sound
 {
-    public static AudioController Instance { get; private set; }
+    public string _name;
+    public AudioClip _clip;
+    public bool _loop;
+    [Range(0, 1)]
+    public float _volume = 1;
+}
 
+public class AudioSystem : Singleton<AudioSystem>
+{
     [Range(0, 1)]
     [SerializeField] private float _musicVolume = 1;
     [Range(0, 1)]
@@ -17,18 +22,6 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource _musicSource, _sfxSource;
 
     private Sound _previousMusic, _currentMusic;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
 
     private void Start()
     {
